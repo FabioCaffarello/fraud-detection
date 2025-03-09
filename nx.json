@@ -10,11 +10,19 @@
     ],
     "sharedGlobals": [
       "{workspaceRoot}/go.work",
-      "{workspaceRoot}/.github/workflows/ci.yml"
+      "{workspaceRoot}/.github/workflows/*.yml"
     ]
   },
   "nxCloudId": "67ccd44d48d441480c22ea1f",
   "plugins": [
-    "@nx-go/nx-go"
+    {
+      "plugin": "@nx-go/nx-go"
+    },
+    {
+      "plugin": "@nxlv/python",
+      "options": {
+        "packageManager": "uv"
+      }
+    }
   ]
 }
