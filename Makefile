@@ -11,8 +11,9 @@ SETUP_SCRIPT := $(SCRIPTS_DIR)/setup.sh
 PYTHON ?= uv
 SHELL_CMD := source
 PRE_COMMIT := pre-commit
+DOCKER_COMPOSE := docker compose
 
-.PHONY: help setup install precommit clean lint lint-docstrings build-docs serve-docs deploy-docs
+.PHONY: help setup install precommit clean lint lint-docstrings run stop build-docs serve-docs deploy-docs
 
 help:
 	@echo "Available targets:"
@@ -23,10 +24,14 @@ help:
 	@echo "  lint             - Lint code using Ruff"
 	@echo "  lint-docstrings  - Lint docstrings using pydocstyle"
 	@echo "  build-docs       - Build documentation and start PlantUML server"
+	@echo "  run 			  - Run the application"
+	@echo "  stop 			  - Stop the application"
 	@echo "  serve-docs       - Serve documentation locally"
 	@echo "  deploy-docs      - Deploy documentation to GitHub Pages"
 
 setup:
+	@chmod +x $(SCRIPTS_DIR)/init-multiple-dbs.sh
+	@chmod +x $(SCRIPTS_DIR)/wait-for-it.sh
 	@chmod +x $(SETUP_SCRIPT)
 	@$(SETUP_SCRIPT)
 
@@ -70,3 +75,9 @@ serve-docs: build-docs
 
 deploy-docs: build-docs
 	$(PYTHON) run -- python -m mkdocs gh-deploy
+
+run:
+	$(DOCKER_COMPOSE) --profile flower up -d --build
+
+stop:
+	$(DOCKER_COMPOSE) --profile flower down --remove-orphans -v

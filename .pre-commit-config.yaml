@@ -52,6 +52,7 @@ repos:
       - id: shellcheck
         name: ShellCheck
         files: \.sh$
+        exclude: '^scripts/wait-for-it\.sh$'
 
   - repo: https://github.com/jsh9/pydoclint
     rev: 0.6.2
