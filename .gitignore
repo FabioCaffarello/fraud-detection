@@ -2,6 +2,11 @@
 
 TODO
 
+reports
+coverage
+
+__pycache__
+
 # compiled output
 dist
 tmp

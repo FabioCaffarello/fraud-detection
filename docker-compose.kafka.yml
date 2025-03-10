@@ -360,11 +360,6 @@ services:
       - console
     env_file:
       - ./src/data-emulator/.env
-    deploy:
-      replicas: 2
-      limits:
-        cpus: "0.5"
-        memory: 512M
     networks:
       - fraud-detection
 
