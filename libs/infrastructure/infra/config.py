@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     kafka_bootstrap_servers: str = "localhost:9092"
     kafka_username: Optional[str] = None
     kafka_password: Optional[str] = None
+    minio_endpoint: str = "minio:9000"
+    minio_access_key: str = "minio"
+    minio_secret_key: str = "minio123"
+    minio_secure: bool = False
 
     class Config:
         env_file = ".env"

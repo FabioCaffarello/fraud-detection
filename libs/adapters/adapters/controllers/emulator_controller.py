@@ -4,6 +4,7 @@ from ddd_application.dtos.emulation_dto import EmulationScheduledDTO, StartEmula
 from ddd_application.usecases.start_emulator import StartEmulatorUseCase
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from infra.config import Settings
+from infra.minio.client import MinioClient
 from infra.producers.kafka_producer import KafkaProducerStrategy
 
 router = APIRouter(prefix="/emulator", tags=["Emulator"])
@@ -11,6 +12,15 @@ router = APIRouter(prefix="/emulator", tags=["Emulator"])
 
 def get_config(request: Request) -> Settings:
     return request.app.state.config
+
+
+def get_minio_client(config: Settings = Depends(get_config)) -> MinioClient:  # noqa: B008
+    return MinioClient(
+        endpoint=config.minio_endpoint,
+        access_key=config.minio_access_key,
+        secret_key=config.minio_secret_key,
+        secure=config.minio_secure,
+    )
 
 
 def get_kafka_producer(config: Settings = Depends(get_config)) -> KafkaProducerStrategy:  # noqa: B008
@@ -24,13 +34,12 @@ def get_kafka_producer(config: Settings = Depends(get_config)) -> KafkaProducerS
 def get_start_emulator_usecase(
     config: Settings = Depends(get_config),  # noqa: B008
     kafka_producer: KafkaProducerStrategy = Depends(get_kafka_producer),  # noqa: B008
+    minio_client: MinioClient = Depends(get_minio_client),  # noqa: B008
 ) -> StartEmulatorUseCase:
-    producer_mapping = {"kafka": kafka_producer}
-    topics_mapping = {"transaction": "transactions"}
     return StartEmulatorUseCase(
-        producer_mapping=producer_mapping,
+        kafka_producer=kafka_producer,
         kafka_brokers=config.kafka_bootstrap_servers,
-        topics_mapping=topics_mapping,
+        minio_client=minio_client,
     )
 
 

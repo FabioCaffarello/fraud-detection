@@ -9,9 +9,7 @@ class TestLogging(unittest.TestCase):
     @patch("logging.StreamHandler")
     @patch("pythonjsonlogger.json.JsonFormatter")
     @patch("logging.getLogger")
-    def test_setup_logging(
-        self, mock_get_logger, mock_json_formatter, mock_stream_handler
-    ):
+    def test_setup_logging(self, mock_get_logger, mock_json_formatter, mock_stream_handler):
         # Mock the dependencies
         mock_logger = mock_get_logger.return_value
         mock_handler = mock_stream_handler.return_value

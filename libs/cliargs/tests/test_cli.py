@@ -45,9 +45,7 @@ class TestCliArgsParser(unittest.TestCase):
     def test_version_action_exists(self):
         """Verify that a version action is configured."""
         version_actions = [
-            action
-            for action in self.parser._actions
-            if isinstance(action, argparse._VersionAction)
+            action for action in self.parser._actions if isinstance(action, argparse._VersionAction)
         ]
         self.assertTrue(len(version_actions) > 0, "Version action not found in parser.")
 

@@ -42,7 +42,7 @@ exclude = [
   "dist",
 ]
 
-line-length = 88
+line-length = 100
 indent-width = 4
 
 [tool.ruff.lint]

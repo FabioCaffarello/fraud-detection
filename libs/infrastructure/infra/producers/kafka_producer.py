@@ -5,7 +5,7 @@ from logger.log import get_logger_from_env
 
 from infra.producers.base_producer import BaseProducer
 
-logger = get_logger_from_env(__file__)
+logger = get_logger_from_env(__name__)
 
 
 class KafkaProducerStrategy(BaseProducer):
@@ -43,9 +43,7 @@ class KafkaProducerStrategy(BaseProducer):
         if err is not None:
             logger.error(f"Failed to deliver message: {err}")
         else:
-            logger.info(
-                f"Message '{msg.key()}' delivered to {msg.topic()} [{msg.partition()}]"
-            )
+            logger.info(f"Message '{msg.key()}' delivered to {msg.topic()} [{msg.partition()}]")
 
     def produce(self, topic: str, key: str, value: dict):
         try:
@@ -60,6 +58,9 @@ class KafkaProducerStrategy(BaseProducer):
         except Exception as e:
             logger.error(f"Erro ao produzir mensagem: {e}")
             raise e
+
+    def get_producer(self):
+        return self.producer
 
     def flush(self, timeout: int = 30):
         self.producer.flush(timeout)

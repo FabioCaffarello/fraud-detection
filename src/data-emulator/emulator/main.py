@@ -38,7 +38,7 @@ def setup_service() -> tuple[Settings, logging.Logger]:
         kafka_password=os.getenv("KAFKA_PASSWORD"),
     )
 
-    log = setup_logging(__file__, log_level=args.log_level)
+    log = setup_logging(__name__, log_level=args.log_level)
     _set_log_level_env_var(config.log_level)
     if args.verbose:
         log.info("Verbose mode enabled.")

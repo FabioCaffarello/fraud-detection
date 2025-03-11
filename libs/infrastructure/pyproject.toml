@@ -19,6 +19,7 @@ dependencies = [
     "logger",
     "pydantic-settings>=2.8.1",
     "confluent-kafka>=2.8.2",
+    "minio>=7.2.15"
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -40,7 +41,7 @@ exclude = [
   "dist",
 ]
 
-line-length = 88
+line-length = 100
 indent-width = 4
 
 [tool.ruff.lint]

@@ -12,3 +12,7 @@ class BaseProducer(ABC):
     @abstractmethod
     def flush(self, timeout: int = 30) -> None:
         pass
+
+    @abstractmethod
+    def get_producer(self):
+        pass
