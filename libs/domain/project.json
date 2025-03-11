@@ -61,18 +61,6 @@
       },
       "cache": true
     },
-    "test": {
-      "executor": "@nxlv/python:run-commands",
-      "outputs": [
-        "{workspaceRoot}/reports/libs/domain/unittests",
-        "{workspaceRoot}/coverage/libs/domain"
-      ],
-      "options": {
-        "command": "uv run pytest tests/",
-        "cwd": "libs/domain"
-      },
-      "cache": true
-    },
     "install": {
       "executor": "@nxlv/python:install",
       "options": {

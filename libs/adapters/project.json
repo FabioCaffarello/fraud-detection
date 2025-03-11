@@ -61,18 +61,6 @@
       },
       "cache": true
     },
-    "test": {
-      "executor": "@nxlv/python:run-commands",
-      "outputs": [
-        "{workspaceRoot}/reports/libs/adapters/unittests",
-        "{workspaceRoot}/coverage/libs/adapters"
-      ],
-      "options": {
-        "command": "uv run pytest tests/",
-        "cwd": "libs/adapters"
-      },
-      "cache": true
-    },
     "install": {
       "executor": "@nxlv/python:install",
       "options": {

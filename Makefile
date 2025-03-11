@@ -14,7 +14,7 @@ PRE_COMMIT := pre-commit
 NPM := npm
 DOCKER_COMPOSE := docker compose
 
-.PHONY: help setup install precommit clean lint lint-docstrings run stop build-docs serve-docs deploy-docs
+.PHONY: help setup install precommit clean lint check-all lint-docstrings run stop build-docs serve-docs deploy-docs
 
 help:
 	@echo "Available targets:"
@@ -23,6 +23,7 @@ help:
 	@echo "  precommit        - Run pre-commit checks on all files"
 	@echo "  clean            - Remove Python caches and temporary files"
 	@echo "  lint             - Lint code using Ruff"
+	@echo "  check-all        - Run tests and linting"
 	@echo "  lint-docstrings  - Lint docstrings using pydocstyle"
 	@echo "  build-docs       - Build documentation and start PlantUML server"
 	@echo "  run 			  - Run the application"
@@ -56,6 +57,7 @@ clean:
 	@find . -type d -name "__pycache__" -exec rm -rf {} +
 	@find . -type d -name ".pytest_cache" -exec rm -rf {} +
 	@find . -type d -name ".mypy_cache" -exec rm -rf {} +
+	@find . -type d -name ".coverage" -exec rm -rf {} +
 	@find . -type d -name ".ruff_cache" -exec rm -rf {} +
 	@find . -type f -name "*.pyc" -delete
 	@echo "Clean complete."
@@ -70,6 +72,11 @@ build-docs:
 
 lint:
 	npx nx run-many --target=lint --all
+	npx nx run-many --target=fmt --all
+
+check-all:
+	npx nx run-many --target=test --all
+	npx nx run-many --target=check --all
 
 serve-docs: build-docs
 	@echo "Serving documentation..."

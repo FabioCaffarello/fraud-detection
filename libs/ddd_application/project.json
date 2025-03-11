@@ -61,18 +61,6 @@
       },
       "cache": true
     },
-    "test": {
-      "executor": "@nxlv/python:run-commands",
-      "outputs": [
-        "{workspaceRoot}/reports/libs/ddd_application/unittests",
-        "{workspaceRoot}/coverage/libs/ddd_application"
-      ],
-      "options": {
-        "command": "uv run pytest tests/",
-        "cwd": "libs/ddd_application"
-      },
-      "cache": true
-    },
     "install": {
       "executor": "@nxlv/python:install",
       "options": {
