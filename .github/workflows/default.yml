@@ -19,3 +19,11 @@ jobs:
       use-coverage: false
       final-commands: |
         make lint-docstrings
+
+  check:
+    name: Check
+    uses: ./.github/workflows/ci-main.yml
+    with:
+      use-coverage: false
+      final-commands: |
+        make check-all

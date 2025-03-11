@@ -1,0 +1,66 @@
+[project]
+name = "fraud-detection"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+  "data-emulator",
+  "logger",
+  "cliargs",
+  "infrastructure",
+  "domain",
+  "ddd_application",
+  "adapters",
+  "uvicorn>=0.34.0",
+  "python-json-logger>=3.3.0",
+  "pydantic-settings>=2.8.1",
+  "confluent-kafka>=2.8.2",
+  "fastapi>=0.115.11",
+  "faker>=37.0.0",
+  "minio>=7.2.15"
+]
+
+[project.scripts]
+emulator = "emulator.main:main"
+
+[tool.uv.sources.logger]
+workspace = true
+
+[tool.uv.sources.data-emulator]
+workspace = true
+
+[tool.uv.sources.cliargs]
+workspace = true
+
+[tool.uv.sources.infrastructure]
+workspace = true
+
+[tool.uv.sources.ddd_application]
+workspace = true
+
+[tool.uv.sources.adapters]
+workspace = true
+
+[tool.uv.sources.domain]
+workspace = true
+
+
+[tool.uv.workspace]
+members = [
+  "./src/data-emulator",
+  "./libs/logger",
+  "./libs/cliargs",
+  "./libs/infrastructure",
+  "./libs/adapters",
+  "./libs/domain",
+  "./libs/ddd_application"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+  "./src/data-emulator/emulator"
+]
+
+[build-system]
+requires = [ "hatchling" ]
+build-backend = "hatchling.build"

@@ -43,7 +43,6 @@ plugins:
       nav_file: summary.md
 
 watch:
-  - packages
   - src
 
 extra_css:
